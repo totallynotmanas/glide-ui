@@ -1,0 +1,40 @@
+Screen { 
+    align: center middle;
+    content-align: center middle;
+}
+
+GlideLogin {
+    dock:top;
+    min-width: 50;
+    margin: 10;
+    padding: 5;
+    background: $boost;
+    align: center middle;
+
+}
+#Login {
+    
+    align: center middle;
+
+}
+
+Input {
+    height: 3;
+    content-align: center middle;
+    max-width: 50vw;
+}
+
+#test {
+    align: center middle;
+    content-align: center middle;
+    max-width: 50vw;
+}
+
+LoadingIndicator {
+    dock: top;
+    visibility: hidden;
+}
+
+.loading LoadingIndicator {
+    visibility: visible;
+}
