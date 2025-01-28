@@ -4,13 +4,14 @@ Screen {
 }
 
 GlideLogin {
-    dock:top;
+    dock: bottom;
     min-width: 50;
-    margin: 10;
+    margin: 15;
     padding: 5;
     background: $boost;
     align: center middle;
-
+    
+    offset-y: 3;
 }
 #Login {
     
@@ -18,23 +19,41 @@ GlideLogin {
 
 }
 
+
 Input {
     height: 3;
     content-align: center middle;
     max-width: 50vw;
 }
 
-#test {
-    align: center middle;
-    content-align: center middle;
-    max-width: 50vw;
+
+.loading SendWidget {
+    visibility: visible;
 }
 
-LoadingIndicator {
-    dock: top;
+.loading RecieveWidget {
+    visibility: visible;
+}
+
+.loading GlideLogin {
     visibility: hidden;
 }
 
-.loading LoadingIndicator {
-    visibility: visible;
+SendWidget {
+    dock: left;
+    width: 50vw;
+    height: 90vh;
+    offset-y: 1;
+    align: center middle;
+    
+    
+}
+
+RecieveWidget {
+    dock: right;
+    width: 50vw;
+    height: 90vh;
+    offset-y: 1;
+    align: center middle;
+    
 }
