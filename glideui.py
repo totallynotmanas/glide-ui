@@ -3,6 +3,7 @@ from textual.containers import Center
 from textual.widgets import Button, Input, Footer, Header, Static, LoadingIndicator, OptionList, Placeholder
 import socket
 from textual.widgets.option_list import Option, Separator
+import os
 
 class GlideLogin(Static):
     def compose(self):
@@ -218,14 +219,27 @@ class GlideApp(App):
             
             return requests
 
-    '''    
+      
     def sendFile(self,path):
+        try:
+            file_size = os.path.getsize(path)   
+        except FileNotFoundError:
+            print(f"The file '{path}' does not exist.")
+            return
         file = open(path,"rb")
-        file_data = file.read()
-        file.close()
         file_name = path.split("\\")[-1]
         file_name_bytes = bytes(file_name, "utf-8")
-    '''
+        self.socket.sendall(b"\x05"+file_name_bytes+b"\00"+file_size.to_bytes(4, byteorder='big'))
+        chunks_ex = file_size // 1024
+        for i in range(chunks_ex):
+            chunk = file.read(1024)
+            self.socket.sendall(b"\x06"+file_name_bytes+b"\00"+(1024).to_bytes(2, byteorder='big')+chunk)
+        left_bytes = file_size - chunks_ex*1024
+        chunk = file.read(left_bytes)
+        self.socket.sendall(b"\x06"+file_name_bytes+b"\00"+left_bytes.to_bytes(2, byteorder='big')+chunk)
+        
+
+    
         
 
 
