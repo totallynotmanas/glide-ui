@@ -35,9 +35,7 @@ Input {
     visibility: visible;
 }
 
-.loading GlideLogin {
-    visibility: hidden;
-}
+
 
 SendWidget {
     dock: left;
