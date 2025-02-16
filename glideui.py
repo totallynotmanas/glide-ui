@@ -1,12 +1,9 @@
-from textual.app import App, ComposeResult
+from textual.app import App
 from textual.containers import Center, Container, HorizontalGroup
 from textual.widgets import Button, Input, Footer, Header, Static, LoadingIndicator, OptionList, Label
-from textual.screen import ModalScreen
-from textual import on 
 import socket
 from textual.widgets.option_list import Option, Separator
 import os
-import time
 
 class GlideLogin(Static):
     def compose(self):
@@ -183,14 +180,14 @@ class GlideApp(App):
         self.socket.sendall(user_string)
         LoginCheck = self.socket.recv(1)
         if LoginCheck == b"\x02":
-            self.query_one("GlideLogin").action_notify("Login Successful")
+            self.query_one("GlideLogin").action_notify("Login Successful", severity="success")
             
             return 2
         elif LoginCheck == b"\x03":
-            self.query_one("GlideLogin").action_notify("Username invalid", severity="error")
+            self.query_one("GlideLogin").action_notify("Username taken or signed in already", severity="error")
             return 3
         elif LoginCheck == b"\x04":
-            self.query_one("GlideLogin").action_notify("User already logged in", severity="error")
+            self.query_one("GlideLogin").action_notify("Username invalid", severity="error")
             return 4
 
     def getConnectedUsers(self):
@@ -239,7 +236,6 @@ class GlideApp(App):
                         request_cur_filename += request_filename
                 request_filename_string = request_cur_filename.decode("utf-8")
                 requests.append([request_user_string,request_filename_string])
-                self.query_one("RecieveWidget").action_notify(str(requests))
                 num_requests -= 1
             
             return requests
@@ -283,7 +279,7 @@ class GlideApp(App):
         elif check == b"\x07":
             pass
         else:
-            self.query_one("RecieveWidget").action_notify(f"{check}Error sending request", severity="error")
+            self.query_one("RecieveWidget").action_notify("Error sending request", severity="error")
             return
         
         self.socket.sendall(b"\x05"+file_name_bytes+b"\00"+file_size.to_bytes(4, byteorder='big'))
@@ -397,7 +393,7 @@ class GlideApp(App):
 
             self.query_one("RecieveWidget").action_notify("File received", severity="success")
             print(f"File '{request_filename}' received successfully!")
-
+            self.query_one("RecieveWidget").action_remove_request(request)
         else:
             self.query_one("RecieveWidget").action_notify("Error receiving file", severity="error")
      

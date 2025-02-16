@@ -1,17 +1,17 @@
 Screen { 
     align: center middle;
     content-align: center middle;
+    min-width: 30;
 }
 
 GlideLogin {
-    dock: bottom;
-    min-width: 50;
+    dock: top;
+    min-width: 30;
     margin: 15;
-    padding: 5;
+    padding: 3;
     background: $boost;
     align: center middle;
-    
-    offset-y: 3;
+    offset-y: -7;
 }
 #Login {
     
@@ -23,9 +23,18 @@ GlideLogin {
 Input {
     height: 3;
     content-align: center middle;
-    max-width: 50vw;
+    max-width: 40vw;
 }
 
+OptionList {
+    min_height: 3;
+    content-align: center middle;
+    max-width: 40vw;
+}
+
+Button { 
+    margin: 3;
+}
 
 .loading SendWidget {
     visibility: visible;
@@ -43,7 +52,7 @@ SendWidget {
     height: 90vh;
     offset-y: 1;
     align: center middle;
-    
+    overflow: auto auto;
     
 }
 
@@ -53,5 +62,21 @@ RecieveWidget {
     height: 90vh;
     offset-y: 1;
     align: center middle;
+    min-width: 40;
+    overflow: auto auto;
     
+}
+
+#Reject {
+    
+    dock: right;
+
+}
+
+#reqs_list {
+    min_height: 6;
+}
+
+#Login {
+    margin: 1;
 }
