@@ -1,1 +1,3 @@
-This is a work in progress work, will be updated regurarly and it currently doesnt work.
+The current version is 0.80, this verion works with glide-server version 1.0.3.
+
+©totallynotmanas
